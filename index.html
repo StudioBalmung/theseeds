@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>The Seeds - v0.6.2</title>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div id="title-screen">
+<canvas id="title-canvas"></canvas>
+<div class="title-content">
+<div class="title-logo">
+<div class="t1">THE SEEDS</div>
+<div class="t2">LIFE SIMULATOR</div>
+<div class="t3">v0.6.2 · Studio Balmung · Neofilisoft</div>
+</div>
+<div class="seed-row">
+<input id="seed-input" type="text" placeholder="World seed (optional)…" maxlength="32"/>
+<button class="seed-btn" id="btn-rand-seed">Random</button>
+</div>
+<div class="title-btns">
+<button class="title-btn primary" id="btn-new-game">New World</button>
+<button class="title-btn" id="btn-load-game">Load World</button>
+</div>
+</div>
+<div id="save-slots">
+<div class="save-panel">
+<button class="sp-close" id="sp-close">✕</button>
+<h3>💾 Saved Worlds</h3>
+<div id="slot-list"></div>
+<div id="no-saves" style="color:var(--muted);font-size:10px;display:none">No saved worlds found.</div>
+</div>
+</div>
+</div>
+<div id="app">
+<div id="topbar">
+<span class="logo" id="logo-btn">THE <span>SEEDS</span></span>
+<span class="pill" style="color:#888;font-size:8px" id="tb-seedcode"></span>
+<span class="pill">⏱ <b id="tb-tick">0</b></span>
+<span class="pill">📅 Y<b id="tb-year">1</b> · <b id="tb-season">Spring</b></span>
+<span class="pill">🫀 <b id="tb-alive">0</b></span>
+<span class="pill">🧬 Gen<b id="tb-gen">0</b></span>
+<span class="pill">⚠ Kin <b id="tb-kin">0</b></span>
+<span class="pill">🏰 <b id="tb-tribes">0</b> tribes</span>
+<div id="sp"></div>
+<button class="tbtn" id="btn-gen">🧬 Genetics</button>
+<button class="tbtn" id="btn-pol">⚔ Politics</button>
+<button class="tbtn save" id="btn-save">💾 Save</button>
+<button class="tbtn" id="btn-pause">⏸ Pause</button>
+<button class="tbtn danger" id="btn-menu">☰ Menu</button>
+</div>
+<div id="main">
+<div id="lpanel">
+<div class="phdr">🖌 Brush Tools</div>
+<div class="pbody">
+<div class="tsec">Terrain Paint</div>
+<button class="tbtn2 sel" data-tool="plain"><span class="ticon" style="background:#3d6e3d">🌿</span>Grassland</button>
+<button class="tbtn2" data-tool="forest"><span class="ticon" style="background:#1a4a1a">🌲</span>Forest</button>
+<button class="tbtn2" data-tool="desert"><span class="ticon" style="background:#c8a045">🏜</span>Desert</button>
+<button class="tbtn2" data-tool="wetland"><span class="ticon" style="background:#1a5a7a">🌊</span>Wetland</button>
+<button class="tbtn2" data-tool="tundra"><span class="ticon" style="background:#7aa0c0">❄</span>Tundra</button>
+<button class="tbtn2" data-tool="mountain"><span class="ticon" style="background:#6a6060">⛰</span>Mountain</button>
+<button class="tbtn2" data-tool="river"><span class="ticon" style="background:#2060a0">💧</span>River</button>
+<button class="tbtn2" data-tool="lava"><span class="ticon" style="background:#c83010">🌋</span>Lava</button>
+<button class="tbtn2" data-tool="ice"><span class="ticon" style="background:#a0d0f0">🧊</span>Ice</button>
+<div class="tsec">Spawn Life</div>
+<button class="tbtn2" data-tool="spawn_human"><span class="ticon" style="background:#f5d0a0">🧑</span>Human</button>
+<button class="tbtn2" data-tool="spawn_elf"><span class="ticon" style="background:#c0e0c0">🧝</span>Elf</button>
+<button class="tbtn2" data-tool="spawn_orc"><span class="ticon" style="background:#a06040">👹</span>Orc</button>
+<button class="tbtn2" data-tool="spawn_dwarf"><span class="ticon" style="background:#e0b080">🧔</span>Dwarf</button>
+<button class="tbtn2" data-tool="spawn_cat"><span class="ticon" style="background:#f0a050">🐈</span>Cat</button>
+<button class="tbtn2" data-tool="spawn_dog"><span class="ticon" style="background:#b08050">🐕</span>Dog</button>
+<button class="tbtn2" data-tool="spawn_sheep"><span class="ticon" style="background:#e0e0e0">🐑</span>Sheep</button>
+<button class="tbtn2" data-tool="spawn_cow"><span class="ticon" style="background:#e0c0a0">🐄</span>Cow</button>
+<button class="tbtn2" data-tool="spawn_pig"><span class="ticon" style="background:#f0a0a0">🐖</span>Pig</button>
+<button class="tbtn2" data-tool="spawn_chicken"><span class="ticon" style="background:#e0d0a0">🐔</span>Chicken</button>
+<button class="tbtn2" data-tool="spawn_wolf"><span class="ticon" style="background:#808080">🐺</span>Wolf</button>
+<button class="tbtn2" data-tool="spawn_fox"><span class="ticon" style="background:#e08040">🦊</span>Fox</button>
+<button class="tbtn2" data-tool="spawn_frog"><span class="ticon" style="background:#60b030">🐸</span>Frog</button>
+<button class="tbtn2" data-tool="spawn_fish"><span class="ticon" style="background:#4080c0">🐟</span>Fish</button>
+<button class="tbtn2" data-tool="spawn_cobra"><span class="ticon" style="background:#6b4c3b">🐍</span>Cobra</button>
+<button class="tbtn2" data-tool="spawn_python"><span class="ticon" style="background:#4b6b3b">🐍</span>Python</button>
+<button class="tbtn2" data-tool="spawn_bee"><span class="ticon" style="background:#f0c040">🐝</span>Bee</button>
+<button class="tbtn2" data-tool="spawn_butterfly"><span class="ticon" style="background:#e0a0f0">🦋</span>Butterfly</button>
+<button class="tbtn2" data-tool="spawn_worm"><span class="ticon" style="background:#c080a0">🪱</span>Worm</button>
+<div class="tsec">Impact Tools</div>
+<button class="tbtn2" data-tool="erase"><span class="ticon">🗑</span>Erase Life</button>
+<button class="tbtn2" data-tool="bomb"><span class="ticon">💣</span>Bomb</button>
+<button class="tbtn2" data-tool="meteor"><span class="ticon">☄</span>Meteor</button>
+<button class="tbtn2" data-tool="volcano"><span class="ticon">🌋</span>Eruption</button>
+<button class="tbtn2" data-tool="flood"><span class="ticon">🌊</span>Flood Tile</button>
+<button class="tbtn2" data-tool="fire"><span class="ticon">🔥</span>Set Fire</button>
+<button class="tbtn2" data-tool="disease_tile"><span class="ticon">🦠</span>Infect Tile</button>
+<div class="tsec">View Mode</div>
+<button class="tbtn2 sel" data-view="normal"><span class="ticon">🗺</span>Normal</button>
+<button class="tbtn2" data-view="genetics"><span class="ticon">🧬</span>Genetics</button>
+<button class="tbtn2" data-view="faith"><span class="ticon">✨</span>Faith</button>
+<button class="tbtn2" data-view="health"><span class="ticon">❤</span>Health</button>
+<button class="tbtn2" data-view="politics"><span class="ticon">⚔</span>Politics</button>
+<button class="tbtn2" data-view="biome"><span class="ticon">🌍</span>Biome</button>
+</div>
+<div class="spd">
+<button class="sbtn" data-spd="0.5">½x</button>
+<button class="sbtn on" data-spd="1">1x</button>
+<button class="sbtn" data-spd="2">2x</button>
+<button class="sbtn" data-spd="4">4x</button>
+<button class="sbtn" data-spd="8">8x</button>
+<button class="sbtn" data-spd="20">20x</button>
+</div>
+</div>
+<div id="cw">
+<canvas id="world"></canvas>
+<canvas id="minimap-canvas" width="100" height="100"></canvas>
+<div id="tt"><div class="ttn" id="tt-n"></div><div id="tt-b"></div></div>
+<div id="notif"></div>
+<div id="autosave-flash">💾 Auto-saved</div>
+<div id="cam-hint">Scroll: Zoom · RMB+drag: Pan · LMB: Paint</div>
+<div id="impact-aimer"></div>
+</div>
+<div id="rpanel">
+<div class="phdr">⚡ God Powers</div>
+<div class="pbody" style="flex:none;border-bottom:1px solid var(--border)">
+<button class="gbtn bless" id="gp-rain">🌧 Send Rain</button>
+<button class="gbtn bless" id="gp-fertile">🌱 Fertile Season</button>
+<button class="gbtn bless" id="gp-evolve">🧬 Force Evolution</button>
+<button class="gbtn bless" id="gp-bless">✨ Sun Blessing</button>
+<button class="gbtn bless" id="gp-peace">☮ Force Peace</button>
+<button class="gbtn curse" id="gp-drought">🔥 Drought</button>
+<button class="gbtn curse" id="gp-storm">⚡ Lightning Storm</button>
+<button class="gbtn curse" id="gp-plague">🦠 Plague</button>
+<button class="gbtn curse" id="gp-cull">☠ Cull Weak</button>
+<button class="gbtn curse" id="gp-war">⚔ Ignite War</button>
+<button class="gbtn royal" id="gp-anoint">👑 Anoint King</button>
+<button class="gbtn royal" id="gp-revelation">📜 Revelation</button>
+</div>
+<div class="phdr">📊 Population</div>
+<div class="pbody" style="flex:none;border-bottom:1px solid var(--border)">
+<canvas id="popchart" width="144" height="48"></canvas>
+<div id="pop-species-list" style="font-size:9px;margin-top:3px"></div>
+<div style="margin-top:4px;font-size:8px;color:var(--muted)">Genetics</div>
+<div class="srow"><span>Avg Fitness</span><span class="sval" id="cn-fit">—</span></div>
+<div class="srow"><span>Avg Het.</span><span class="sval" id="cn-het">—</span></div>
+<div class="srow"><span>Mutations</span><span class="sval" id="cn-mut">0</span></div>
+<div style="margin-top:4px;font-size:8px;color:var(--muted)">World</div>
+<div style="font-size:8px;color:var(--muted)">Plants</div>
+<div class="bar"><div class="bfill" id="bar-p" style="background:var(--accent2)"></div></div>
+<div style="font-size:8px;color:var(--muted)">Water</div>
+<div class="bar"><div class="bfill" id="bar-w" style="background:var(--info)"></div></div>
+</div>
+<div class="phdr" id="tribe-hdr">🏰 Tribes <span id="tribe-count" style="color:var(--muted)">0</span></div>
+<div class="pbody" id="tribelist"></div>
+<div class="phdr">📋 Events</div>
+<div class="pbody" id="evlog"></div>
+</div>
+</div>
+</div>
+<div class="overlay-win" id="genwin">
+<div class="ow-hdr">
+<span class="ow-title">🧬 Genetics Inspector</span>
+<button class="ow-close" id="gwclose">✕</button>
+</div>
+<div id="gw-body"></div>
+</div>
+<div class="overlay-win" id="polwin">
+<div class="ow-hdr">
+<span class="ow-title">⚔ Politics & Diplomacy</span>
+<button class="ow-close" id="polclose">✕</button>
+</div>
+<div id="pol-body"></div>
+</div>
+<div class="overlay-win" id="savewin">
+<div class="ow-hdr">
+<span class="ow-title">💾 Save World</span>
+<button class="ow-close" id="saveclose">✕</button>
+</div>
+<div id="save-body"></div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
